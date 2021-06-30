@@ -15,30 +15,32 @@ namespace snake_and_ladder
             //Console.WriteLine("Player position start with : "+Start_Position);
 
             int roll, checkOption, playerPosition = Start_Position;
+            int finalPosition = 100;
 
             //creating random class
             Random rand = new Random();
-
-            roll = rand.Next(1, 7);
-
-            checkOption = rand.Next(1, 4);
-
-            //Console.WriteLine(checkOption);
-            switch (checkOption)
+            while (playerPosition <= finalPosition)
             {
-                case Not_Play:
-                    break;
-                case Snake:
-                    playerPosition += roll;
-                    break;
-                case Ladder:
-                    playerPosition = (playerPosition - roll) < 0 ? 0 : (playerPosition - roll);
-                    break;
-                default:
-                    break;
+
+                roll = rand.Next(1, 7);
+
+                checkOption = rand.Next(1, 4);
+
+                switch (checkOption)
+                {
+                    case Not_Play:
+                        break;
+                    case Snake:
+                        playerPosition += roll;
+                        break;
+                    case Ladder:
+                        playerPosition = (playerPosition - roll) < 0 ? 0 : (playerPosition - roll);
+                        break;
+                    default:
+                        break;
+                }
             }
-                    Console.WriteLine("Player throws " + roll);
-                    Console.WriteLine("Player Position" + playerPosition);
+            Console.WriteLine("Congratulations...._/\\_ " +finalPosition);
         }
     }
 }
