@@ -6,7 +6,7 @@ namespace snake_and_ladder
 {
     class RollDice
     {
-        public static int Start_Position = 0;
+        public const int Start_Position = 0;
         public const int Not_Play = 1;
         public const int Snake = 2;
         public const int Ladder = 3;
@@ -16,36 +16,37 @@ namespace snake_and_ladder
 
             int roll, checkOption, playerPosition = Start_Position;
             int finalPosition = 100;
+            int countRoll = 1;
 
             //creating random class
             Random rand = new Random();
+            
             while (playerPosition < finalPosition)
             {
-
                 roll = rand.Next(1, 7);
-
                 checkOption = rand.Next(1, 4);
+                Console.WriteLine("roll " + countRoll++);
 
                 switch (checkOption)
                 {
                     case Not_Play:
+                        Console.WriteLine("Player position= " + playerPosition);
                         break;
                     case Snake:
-                        playerPosition += roll;
+                        playerPosition = (playerPosition - roll) < 0 ? 0 : (playerPosition - roll);
+                        Console.WriteLine("Player position= " + playerPosition);
                         break;
                     case Ladder:
-                        playerPosition = (playerPosition - roll) < 0 ? 0 : (playerPosition - roll);
+                        playerPosition += roll;
+                        Console.WriteLine("Player position= " + playerPosition);
                         break;
                     default:
                         break;
                 }
-                        if (playerPosition > finalPosition)
-                        {
-                            playerPosition = playerPosition - roll;
-                        }
-                        Console.WriteLine("Player position= " + playerPosition);
+                playerPosition = playerPosition > finalPosition ? (playerPosition - roll) : playerPosition;
             }
             Console.WriteLine("Congratulations...._/\\_ " +finalPosition);
+            Console.WriteLine("Total Dice Roll = " + --countRoll);
         }
     }
 }
