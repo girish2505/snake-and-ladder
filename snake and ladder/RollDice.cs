@@ -10,43 +10,90 @@ namespace snake_and_ladder
         public const int Not_Play = 1;
         public const int Snake = 2;
         public const int Ladder = 3;
+        public static int playerOnePosition = Start_Position;
+        public static int playerTwoPosition = Start_Position;
+        public static int countRoll = 0;
+        public static int countRollP1 = 0;
+        public static int countRollP2 = 0;
+
+        int roll, checkOption;
+        int finalPosition = 100;
+        Random rand = new Random();
         public void StartGame()
         {
-            //Console.WriteLine("Player position start with : "+Start_Position);
 
-            int roll, checkOption, playerPosition = Start_Position;
-            int finalPosition = 100;
-            int countRoll = 1;
-
-            //creating random class
-            Random rand = new Random();
-            
-            while (playerPosition < finalPosition)
+            PlayerOne();
+        }
+        public void PlayerOne()
+        {
+            if (playerOnePosition == finalPosition)
             {
-                roll = rand.Next(1, 7);
-                checkOption = rand.Next(1, 4);
-                Console.WriteLine("roll " + countRoll++);
-
-                switch (checkOption)
-                {
-                    case Not_Play:
-                        Console.WriteLine("Player position= " + playerPosition);
-                        break;
-                    case Snake:
-                        playerPosition = (playerPosition - roll) < 0 ? 0 : (playerPosition - roll);
-                        Console.WriteLine("Player position= " + playerPosition);
-                        break;
-                    case Ladder:
-                        playerPosition += roll;
-                        Console.WriteLine("Player position= " + playerPosition);
-                        break;
-                    default:
-                        break;
-                }
-                playerPosition = playerPosition > finalPosition ? (playerPosition - roll) : playerPosition;
+                Console.WriteLine("Congratulations player 1");
+                Console.WriteLine("Better luck next time player 2");
+                Console.WriteLine("roll " + countRoll);
+                return;
             }
-            Console.WriteLine("Congratulations...._/\\_ " +finalPosition);
-            Console.WriteLine("Total Dice Roll = " + --countRoll);
+            roll = rand.Next(1, 7);
+            checkOption = rand.Next(1, 4);
+            Console.WriteLine("Player One Dice Roll = " + ++countRollP1);
+            ++countRoll;
+            switch (checkOption)
+            {
+                case Not_Play:
+                    Console.WriteLine("No play --> Player One position= " + playerOnePosition);
+                    PlayerTwo();
+                    break;
+                case Ladder:
+                    playerOnePosition += roll;
+                    playerOnePosition = playerOnePosition > finalPosition ? (playerOnePosition - roll) : playerOnePosition;
+                    Console.WriteLine("Ladder --> Player One position= " + playerOnePosition);
+                    PlayerOne();
+                    break;
+                case Snake:
+                    playerOnePosition = (playerOnePosition - roll) < 0 ? 0 : (playerOnePosition - roll);
+                    Console.WriteLine("Snake --> Player One position= " + playerOnePosition);
+                    PlayerTwo();
+                    break;
+                default:
+                    break;
+
+            }
+        }
+        public void PlayerTwo()
+        {
+            if (playerTwoPosition == finalPosition)
+            {
+                Console.WriteLine("Congratulations player 2");
+                Console.WriteLine("Better luck next time player 1");
+                Console.WriteLine("Total Dice Roll = " + countRoll);
+                return;
+            }
+            roll = rand.Next(1, 7);
+            checkOption = rand.Next(1, 4);
+            Console.WriteLine("Player Two Dice Roll = " + ++countRollP2);
+            ++countRoll;
+            switch (checkOption)
+            {
+                case Not_Play:
+                    Console.WriteLine("No play --> Player Two position= " + playerTwoPosition);
+                    PlayerOne();
+                    break;
+                case Ladder:
+                    playerTwoPosition += roll;
+                    // condition to check whether player position be exactly 100
+                    playerTwoPosition = playerTwoPosition > finalPosition ? (playerTwoPosition - roll) : playerTwoPosition;
+                    Console.WriteLine("Ladder --> Player Two position= " + playerTwoPosition);
+                    PlayerTwo();
+                    break;
+                case Snake:
+                    playerTwoPosition = (playerTwoPosition - roll) < 0 ? 0 : (playerTwoPosition - roll);
+                    Console.WriteLine("Snake --> Player Two position= " + playerTwoPosition);
+                    PlayerOne();
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }
