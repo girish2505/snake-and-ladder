@@ -19,7 +19,7 @@ namespace snake_and_ladder
 
             //creating random class
             Random rand = new Random();
-            while (playerPosition <= finalPosition)
+            while (playerPosition < finalPosition)
             {
 
                 roll = rand.Next(1, 7);
@@ -39,6 +39,11 @@ namespace snake_and_ladder
                     default:
                         break;
                 }
+                        if (playerPosition > finalPosition)
+                        {
+                            playerPosition = playerPosition - roll;
+                        }
+                        Console.WriteLine("Player position= " + playerPosition);
             }
             Console.WriteLine("Congratulations...._/\\_ " +finalPosition);
         }
