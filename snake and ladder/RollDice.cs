@@ -9,7 +9,15 @@ namespace snake_and_ladder
         public static int Start_Position = 0;
         public void StartGame()
         {
-            Console.WriteLine("Player position start with : "+Start_Position);
+           //Console.WriteLine("Player position start with : "+Start_Position);
+
+            int roll;
+            //creating random class
+            Random rand = new Random();
+
+            roll = rand.Next(1, 7);
+
+            Console.WriteLine("Player throws " + roll);
         }
     }
 }
